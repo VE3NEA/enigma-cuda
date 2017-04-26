@@ -14,6 +14,11 @@ software developed by Stefan Krah and used in the
 [Enigma@Home][3] project, with the improvements described [here][4] and the
 new [partial exhaustion][5] method described by Olaf Ostwald and Frode Weierud.
 
+If compiled with a dynamically linked runtime library, the program requires
+installation of [Visual C++ Redistributable for Visual Studio 2015][9]
+
+
+
 ### command-line options
 
 The command line parameters are compatible with the [enigma-suite][2] program, 
@@ -50,7 +55,7 @@ key to last key. If both keys are omitted, all possible keys are tried.
 Since computations are performed in blocks of 26^3 keys, the last
 three letters in the first and last keys are ignored and assumed to be
 AAA to ZZZ. The only exception to this is the case when the first and last keys 
-are the same, then only that specific key is tried.
+are exactly the same, then only that specific key is tried.
 
 `-x`             turnover mode. Try the keys that result in a left hand wheel
 turnover within the message. The default behavior is the opposite, only the keys
@@ -84,8 +89,7 @@ ciphertext
 
 `-g <scoring functions>`    use scoring functions: `0` = IC, `1` = unigrams, 
 `2` = bigrams, `3` = trigrams. 
-The default is `023`. The authors of the [exhaustive search][5] method recommend
-that only the trigrams (`-g 3`) are enabled when their method is used.
+The default is `023`. 
 
 For compatibility with enigma-suite,
 the program can use only the unigrams or bigrams file, but not both.
@@ -110,3 +114,4 @@ Alex Shovkoplyas VE3NEA
 [6]: http://www.nvidia.ca/object/what-is-gpu-computing.html
 [7]: http://www.bytereef.org/enigma-suite.html
 [8]: https://www.nvidia.com/en-us/geforce/products/10series/geforce-gtx-1070/
+[9]: https://www.microsoft.com/en-us/download/details.aspx?id=48145
