@@ -1,3 +1,9 @@
+data/
+enigma-cuda-lib/vendor/CDataFile/
+enigma-cuda-ngrams/
+enigma-cuda-speed/
+enigma-cuda-tools/
+
 tmp/
 bin/
 cuda/
