@@ -16,8 +16,8 @@ void Unigrams::LoadFromFile(const string & file_name)
 	int count;
 
 	std::ifstream infile(file_name);
-    if (!infile) 
-        throw std::runtime_error(string("Cannot open file: ") + GetAbsolutePath(file_name));
+  if (!infile) 
+      throw std::runtime_error(string("Cannot open file: ") + GetAbsolutePath(file_name));
 
     int temp_data[ALPSIZE] = { 0 };
 

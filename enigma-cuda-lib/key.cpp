@@ -205,7 +205,6 @@ void Key::Step()
   sett.r_mesg = mod26(++sett.r_mesg);
 }
 
-
 void Key::StepBack()
 {
   int8_t p = mod26(sett.r_mesg - 1);
@@ -224,11 +223,24 @@ void Key::StepBack()
   sett.r_mesg = mod26(--sett.r_mesg);
 }
 
-
 int Key::GetScramblerIndex()
 {
     int8_t r = mod26(sett.r_mesg - sett.r_ring);
     int8_t m = mod26(sett.m_mesg - sett.m_ring);
     int8_t l = mod26(sett.l_mesg - sett.l_ring);
     return l * ALPSIZE_TO2 + m * ALPSIZE + r;
+}
+
+bool RotorSettings::inc()
+{
+  if (++r_mesg < ALPSIZE) return true;
+  r_mesg = 0;
+
+  if (++m_mesg < ALPSIZE) return true;
+  m_mesg = 0;
+
+  if (++l_mesg < ALPSIZE) return true;
+  l_mesg = 0;
+
+  return false;
 }

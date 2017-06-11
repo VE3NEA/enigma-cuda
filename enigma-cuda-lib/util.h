@@ -28,3 +28,5 @@ extern string LowerCase(const string & text);
 extern string UpperCase(const string & text);
 extern std::vector<string> ListFilesInDirectory(const string & directory);
 extern void TextToClipboard(const std::string & text);
+extern bool FileExists(const string & file_name);
+extern string Trim(const string & str);

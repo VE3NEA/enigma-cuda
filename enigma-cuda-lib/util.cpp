@@ -173,3 +173,18 @@ void TextToClipboard(const std::string & text)
   CloseClipboard();
   GlobalFree(h);
 }
+
+bool FileExists(const string & file_name) 
+{
+  std::ifstream f(file_name.c_str());
+  return f.good();
+}
+
+string Trim(const string & str)
+{
+  const string whitespace = " \t\r\n";
+  int b, e;
+  for (b = 0; b < str.length(); ++b) if (whitespace.find(str[b]) == string::npos)  break;
+  for (e = str.length(); e > 0; --e) if (whitespace.find(str[e-1]) == string::npos)  break;
+  return e > b ? str.substr(b, e-b) : "";
+}

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ini_file.cpp" />
     <ClCompile Include="iterator.cpp" />
     <ClCompile Include="key.cpp" />
     <ClCompile Include="ngrams.cpp" />
@@ -34,6 +35,7 @@
     <ClInclude Include="cuda_code.cuh" />
     <ClInclude Include="cuda_code.h" />
     <ClInclude Include="cuda_err_check.h" />
+    <ClInclude Include="ini_file.h" />
     <ClInclude Include="iterator.h" />
     <ClInclude Include="ngrams.h" />
     <ClInclude Include="plugboard.h" />

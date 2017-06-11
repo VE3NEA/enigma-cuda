@@ -29,12 +29,14 @@ public:
   void RandomizeSwapOrder();
   void SetSwapOrder(const string & order_string);
 
+  string GetSwapOrder();
+
   void SetFixedPlugs(const string & plugs_string);
   void ClearFixedPlugs();
   void StartExhaustive(const string & letters, bool single_plug);
   bool NextExahustive();
 
-  string FixedPlugsToString();
+  string ExahustivePlugsToString();
 
   int Compare(const string plugboard_string);
 

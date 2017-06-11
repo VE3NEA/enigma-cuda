@@ -84,8 +84,16 @@ void Plugboard::RandomizeSwapOrder()
 
 void Plugboard::SetSwapOrder(const string & order_string)
 {
-  for (int i = 0; i < ALPSIZE; i++) 
+  for (int i = 0; i < ALPSIZE; i++)
     order[i] = ToNum(order_string[i]);
+}
+
+string Plugboard::GetSwapOrder()
+{
+  string result;
+  result.resize(ALPSIZE);
+  for (int i = 0; i < ALPSIZE; i++) result[i] = ToChar(order[i]);
+  return result;
 }
 
 void Plugboard::SetFixedPlugs(const string & plugs_string)
@@ -148,12 +156,11 @@ bool Plugboard::NextExahustive()
   list.pop_front();
   if (list.empty()) return false;
 
-  //FromString(list.front());
   SetFixedPlugs(list.front());
   return true;
 }
 
-string Plugboard::FixedPlugsToString()
+string Plugboard::ExahustivePlugsToString()
 {
   return list.empty() ? "" : list.front();
 }

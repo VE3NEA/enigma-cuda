@@ -37,6 +37,8 @@ struct RotorSettings
     int l_mesg;
     int m_mesg;
     int r_mesg;
+
+    bool inc();
 };
 
 struct Key 

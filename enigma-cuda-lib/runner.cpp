@@ -199,7 +199,7 @@ void Runner::ProcessResult(const Result & result)
           *out_stream << "Spent: " << TimeDiffString(clock() - start_time) << std::endl;
           *out_stream << "Pass:  " << current_pass << std::endl;
           if (settings.exhaust_single_plugs != "" || settings.exhaust_multi_plugs != "")
-            *out_stream << "Fixed: " << plugboard.FixedPlugsToString() << std::endl;
+            *out_stream << "Fixed: " << plugboard.ExahustivePlugsToString() << std::endl;
           *out_stream << "Score: " << settings.best_score << std::endl;
           *out_stream << "Words: " << seg_score << std::endl;
           *out_stream << "Key:   " << settings.best_key_string << std::endl;
