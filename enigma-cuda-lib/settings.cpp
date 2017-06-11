@@ -342,7 +342,7 @@ void Settings::SaveResumeFile()
         {
         case toBeforeMessage: fs << "0="; break;
         case toDuringMessage: fs << "1="; break;
-        case toBeforeMessage | toDuringMessage: fs << "2"; break;
+        case toBeforeMessage | toDuringMessage: fs << "2="; break;
         }
         fs << passes_left << "=";
         fs << (first_pass ? "1" : "0") << "=";
