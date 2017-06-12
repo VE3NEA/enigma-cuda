@@ -173,17 +173,20 @@ namespace enigmacudatests
           do count++; while (plugboard.NextExahustive());
           Assert::AreEqual(26 + 25 + 24 + 23 + 22 + 21, count);
 
-          plugboard.StartExhaustive("EN", false);
+//          plugboard.StartExhaustive("EN", false);
+//          count = 0;
+//          do count++; while (plugboard.NextExahustive());
+//          Assert::AreEqual(
+//            24 * 23 + //both letters steckered
+//            24 * 2 +  //one self-steckered
+//            1 +       //both self-steckered
+//            1,        //steckered to each other
+//            count);
+
+          plugboard.StartExhaustive("ENR", false);
           count = 0;
           do count++; while (plugboard.NextExahustive());
-          Assert::AreEqual(
-            24 * 23 + //both letters steckered
-            24 * 2 +  //one self-steckered
-            1 +       //both self-steckered
-            1,        //steckered to each other
-            count);
-
-
+          Assert::AreEqual(1587, count);
         }
     };
 }

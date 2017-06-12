@@ -127,21 +127,38 @@ void Plugboard::StartExhaustive(const string & letters, bool single_plug)
         list.push_back(two_chars(letters[i], c));
   }
   else
-  {
-    for (char c0 = 'A'; c0 <= 'Z'; ++c0)
-      for (char c1 = 'A'; c1 <= 'Z'; ++c1)
+    //do not fix self-steckered letters and a1-a2 pair, just like in EPhi
+    for (int i1 = 0; i1 < letters.length() - 1; ++i1)
+      for (int i2 = i1 + 1; i2 < letters.length(); ++i2)
       {
-        if (c1 == letters[0] || c1 == c0) continue;
-        if (c0 == letters[1]) 
-          list.push_back(two_chars(letters[0], letters[1]));
-        else
-        {
-          string pair0 = two_chars(letters[0], c0);
-          string pair1 = two_chars(letters[1], c1);
-          list.push_back(pair0 < pair1 ? pair0 + pair1 : pair1 + pair0);
-        }
+        char a1 = letters[i1];
+        char a2 = letters[i2];
+
+        for (char b1 = 'A'; b1 <= 'Z'; ++b1)
+          if (b1 != a1 && b1 != a2)
+            for (char b2 = 'A'; b2 <= 'Z'; ++b2)
+              if (b2 != a1 && b2 != a2 && b2 != b1)
+              {
+                string pair1 = two_chars(a1, b1);
+                string pair2 = two_chars(a2, b2);
+                list.push_back(pair1 < pair2 ? pair1 + pair2 : pair2 + pair1);
+              }
       }
-  }
+
+//    for (char c0 = 'A'; c0 <= 'Z'; ++c0)
+//      for (char c1 = 'A'; c1 <= 'Z'; ++c1)
+//      {
+//        if (c1 == letters[0] || c1 == c0) continue;
+//        if (c0 == letters[1]) 
+//          list.push_back(two_chars(letters[0], letters[1]));
+//        else
+//        {
+//          string pair0 = two_chars(letters[0], c0);
+//          string pair1 = two_chars(letters[1], c1);
+//          list.push_back(pair0 < pair1 ? pair0 + pair1 : pair1 + pair0);
+//        }
+//      }
+  
 
   list.sort();
   list.unique();

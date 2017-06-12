@@ -3,6 +3,8 @@ enigma-cuda-lib/vendor/CDataFile/
 enigma-cuda-ngrams/
 enigma-cuda-speed/
 enigma-cuda-tools/
+enigma-cuda-full.sln
+increase_gpu_timeout.reg
 
 tmp/
 bin/
