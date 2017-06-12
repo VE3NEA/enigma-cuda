@@ -131,9 +131,8 @@ bool Runner::Run()
       } while (iterator.NextRotorOrder());
 
       settings.first_pass = false;
-
-      settings.SaveResumeFile();
     }
+    settings.SaveResumeFile();
 
 
     if (!silent)
