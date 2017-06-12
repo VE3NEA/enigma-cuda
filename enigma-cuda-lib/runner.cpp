@@ -106,8 +106,6 @@ bool Runner::Run()
             plugboard.SetFixedPlugs(settings.known_plugs);
           else plugboard.Reset();
 
-
-
           //for each fixed plug
           do
           {
@@ -128,14 +126,13 @@ bool Runner::Run()
               return true;
             }
 
-            //{!}
-            //plugboard.RandomizeSwapOrder();
-            //OrderToDevice(plugboard.order);
           } while (plugboard.NextExahustive());
         } while (iterator.NextRingPosition());
       } while (iterator.NextRotorOrder());
 
       settings.first_pass = false;
+
+      settings.SaveResumeFile();
     }
 
 
