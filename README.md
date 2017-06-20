@@ -41,7 +41,10 @@ is sometimes unpredictable.
 This behavior is preserved for compatibility with enigma-suite.
 The format of the file is described in the *enigma.txt* document included with 
 the enigma-suite [source code][7]. Note that this file does not save information
-about the `-e`, `-E` and `-s` settings.
+about the `-g`, `-e`, `-E` and `-s` settings.
+
+**Edit:** The `-g` option is now stored in the Resume file which breaks 
+compatibility with the original enigma-suite format.
 
 `-o <file_name>` save output to file
 

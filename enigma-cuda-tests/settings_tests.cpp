@@ -24,12 +24,12 @@ namespace enigmacudatests
     
 
     const string resume_text =
-        "M3=B:124:AA:AAA=B:124:ZZ:ZZZ=B:124:ZZ:ZZZ=0=1=1=2147483646\n"
+        "M3=B:124:AA:AAA=B:124:ZZ:ZZZ=B:124:ZZ:ZZZ=0=1=1=013=2147483646\n"
         "M3=B:124:YP:HEJ=BJCDFNGZHIKLMUOVPXQYRWST=30884\n";
 
     const Settings resume_settings = { "", enigmaM3, "B:124:AA:AAA",
         "B:124:ZZ:ZZZ", toBeforeMessage, 1, 2147483646 , "", "", "", true,
-      skIC | skBigram | skTrigram, "", "", "", "",
+      skIC | skUnigram | skTrigram, "", "", "", "",
         "B:124:ZZ:ZZZ", 30884, "B:124:YP:HEJ", "BJCDFNGZHIKLMUOVPXQYRWST" };
 
 

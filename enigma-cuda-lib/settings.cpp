@@ -36,6 +36,29 @@ const string help_string =
 
 #define VALID_OPTIONS "hvicpxaRM:w:r:m:u:s:f:t:k:n:z:o:e:E:g:"
 
+
+string OptionGToString(int value)
+{
+  string result = "";
+  if (value & skIC) result.push_back('0');
+  if (value & skUnigram) result.push_back('1');
+  if (value & skBigram)  result.push_back('2');
+  if (value & skTrigram) result.push_back('3');
+  return result;
+}
+
+int OptionGFromString(const string & str)
+{
+  int result = 0;
+  if (str.find("0") != string::npos) result |= skIC;
+  if (str.find("1") != string::npos) result |= skUnigram;
+  if (str.find("2") != string::npos) result |= skBigram;
+  if (str.find("3") != string::npos) result |= skTrigram;
+  return result;
+}
+
+
+
 void Settings::Clear()
 {
     model = enigmaInvalid;
@@ -126,12 +149,8 @@ bool Settings::FromCommandLine(int argc, char **argv)
                 break;
 
             case 'g':
-                score_kinds = 0;
-                if (strstr(optarg, "0")) score_kinds |= skIC;
-                if (strstr(optarg, "1")) score_kinds |= skUnigram;
-                if (strstr(optarg, "2")) score_kinds |= skBigram;
-                if (strstr(optarg, "3")) score_kinds |= skTrigram;
-                break;
+              score_kinds = OptionGFromString(optarg);                
+              break;
 
             case 'z':
                 stop_at_score = std::stoi(optarg);
@@ -308,6 +327,7 @@ bool Settings::LoadResumeFile()
 
         passes_left = std::stoi(ReadToken(fs));
         first_pass = ReadToken(fs) == "1";
+        score_kinds = OptionGFromString(ReadToken(fs));
         stop_at_score = std::stoi(ReadToken(fs, '\n'));
        
         //second line
@@ -346,6 +366,7 @@ void Settings::SaveResumeFile()
         }
         fs << passes_left << "=";
         fs << (first_pass ? "1" : "0") << "=";
+        fs << OptionGToString(score_kinds) << "=";
         fs << stop_at_score << std::endl;
         fs << EnigmaModelToString(model) << "=";
         fs << best_key_string << "=";
