@@ -9,51 +9,43 @@
 #include "key.h"
 
 
-//TODO: add parameter bool scale = true
+void FileErr(const string & msg, const string & file_name)
+{
+  throw std::runtime_error(msg + GetAbsolutePath(file_name));
+}
+
 void Unigrams::LoadFromFile(const string & file_name)
 {
-	char c;
-	int count;
+	string ngram;
+	int score;
+
+  memset(data, 0, sizeof(data));
 
 	std::ifstream infile(file_name);
-  if (!infile) 
-      throw std::runtime_error(string("Cannot open file: ") + GetAbsolutePath(file_name));
+  if (!infile) FileErr("Cannot open file: ", file_name);
 
-    int temp_data[ALPSIZE] = { 0 };
+  while (infile >> ngram >> score)
+    if (infile.fail() || ngram.length() != 1) FileErr("Error in file: ", file_name);
+    else data[ToNum(toupper(ngram[0]))] = score;
 
-	while (infile >> c >> count) temp_data[ToNum(toupper(c))] = count;
-
-    //scale n-gram scores for easier debugging
-	int mx = 0;
-	for (int i = 0; i < ALPSIZE; ++i)				
-        if (temp_data[i] > mx) mx = temp_data[i];
-
-	for (int i = 0; i < ALPSIZE; ++i)				
-        //data[i] = round((temp_data[i] * 255) / (float)mx);    
-        data[i] = temp_data[i];
+    if (!infile.eof()) FileErr("Error in file: ", file_name);
 }
 
 void Bigrams::LoadFromFile(const string & file_name)
 {
-    string s;
-    int count;
-    std::ifstream infile(file_name);
-    if (!infile) throw std::runtime_error(string("File not found: ") + GetAbsolutePath(file_name));
+  string ngram;
+  int score;
 
-    int temp_data[ALPSIZE][ALPSIZE] = { 0 };
+  memset(data, 0, sizeof(data));
 
-    while (infile >> s >> count)
-        temp_data[ToNum(toupper(s[0]))][ToNum(toupper(s[1]))] = count;
+  std::ifstream infile(file_name);
+  if (!infile) FileErr("Cannot open file: ", file_name);
 
-    int mx = 0;
-    for (int i = 0; i < ALPSIZE; ++i)
-        for (int j = 0; j < ALPSIZE; ++j)
-                if (temp_data[i][j] > mx) mx = temp_data[i][j];
+  while (infile >> ngram >> score)
+    if (infile.fail() || ngram.length() != 2) FileErr("Error in file: ", file_name);
+    else data[ToNum(toupper(ngram[0]))][ToNum(toupper(ngram[1]))] = score;
 
-    for (int i = 0; i < ALPSIZE; ++i)
-        for (int j = 0; j < ALPSIZE; ++j)
-                //data[i][j] = round((temp_data[i][j] * 255) / (float)mx);    
-                data[i][j] = temp_data[i][j];
+    if (!infile.eof()) FileErr("Error in file: ", file_name);
 }
 
 int Bigrams::ScoreText(const string & text)
@@ -71,30 +63,21 @@ int Bigrams::ScoreText(const string & text)
 
 void Trigrams::LoadFromFile(const string & file_name)
 {
-	string s;
-	int count;
-	std::ifstream infile(file_name);
-	if (!infile) throw std::runtime_error(string("File not found: ") + GetAbsolutePath(file_name));
+  string ngram;
+  int score;
 
-    //temp_data is int, data might be uint8_t if it is faster
-    int temp_data[ALPSIZE][ALPSIZE][ALPSIZE] = { 0 };
-    
-    while (infile >> s >> count)
-        temp_data[ToNum(toupper(s[0]))]
-		    [ToNum(toupper(s[1]))]
-	        [ToNum(toupper(s[2]))] = count;
+  memset(data, 0, sizeof(data));
 
-	int mx = 0;
-	for (int i = 0; i < ALPSIZE; ++i)
-		for (int j = 0; j < ALPSIZE; ++j)
-			for (int k = 0; k < ALPSIZE; ++k)
-				if (temp_data[i][j][k] > mx) mx = temp_data[i][j][k];
+  std::ifstream infile(file_name);
+  if (!infile) FileErr("Cannot open file: ", file_name);
 
-    for (int i = 0; i < ALPSIZE; ++i)
-		for (int j = 0; j < ALPSIZE; ++j)
-			for (int k = 0; k < ALPSIZE; ++k)
-                //data[i][j][k] = round((temp_data[i][j][k] * 255) / (float)mx);    
-                data[i][j][k] = temp_data[i][j][k];
+  while (infile >> ngram >> score)
+    if (infile.fail() || ngram.length() != 3) FileErr("Error in file: ", file_name);
+    else data[ToNum(toupper(ngram[0]))]
+             [ToNum(toupper(ngram[1]))]
+             [ToNum(toupper(ngram[2]))] = score;
+
+    if (!infile.eof()) FileErr("Error in file: ", file_name);
 }
 
 int Trigrams::ScoreText(const string & text)

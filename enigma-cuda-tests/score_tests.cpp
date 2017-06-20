@@ -24,9 +24,16 @@ namespace enigmacudatests
 
         TEST_METHOD(UniScoreTest)
         {
-            int score = ComputeUniScore(cipher_string, solution_key_string,
-                uni_plug_string, UNI_FILE);
-            Assert::AreEqual(5603014, score);
+          int score = ComputeUniScore(cipher_string, solution_key_string,
+            uni_plug_string, UNI_FILE);
+          Assert::AreEqual(5603014, score);
+
+          try
+          {
+            NgramsToDevice(BI_FILE, "", "");
+            Assert::Fail();
+          }
+          catch (std::runtime_error e) {}
         }
 
         TEST_METHOD(BiScoreTest)
@@ -42,6 +49,19 @@ namespace enigmacudatests
             score = ComputeBiScore(cipher_EJRSB, key_EJRSB, plugs_EJRSB, BI_FILE_1943);
             Assert::AreEqual(expected_score, score);
             
+            try
+            {
+              NgramsToDevice("", UNI_FILE, "");
+              Assert::Fail();
+            }
+            catch (std::runtime_error e) {}
+
+            try
+            {
+              NgramsToDevice("", TRI_FILE, "");
+              Assert::Fail();
+            }
+            catch (std::runtime_error e) {}
         }
 
         TEST_METHOD(TriScoreTest)
@@ -62,6 +82,13 @@ namespace enigmacudatests
             expected_score = trigrams.ScoreText(text_EJRSB);
             score = ComputeTriScore(cipher_EJRSB, key_EJRSB, plugs_EJRSB, TRI_FILE_1943);
             Assert::AreEqual(expected_score, score);
+
+            try
+            {
+              NgramsToDevice("", "", BI_FILE);
+              Assert::Fail();
+            }
+            catch (std::runtime_error e) {}
         }
     };
 }
