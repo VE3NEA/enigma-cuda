@@ -184,7 +184,7 @@ bool Settings::FromCommandLine(int argc, char **argv)
             throw std::invalid_argument("three file names required");
 
         trigram_file_name = argv[optind++];
-        if (score_kinds | skUnigram) unigram_file_name = argv[optind++];
+        if (score_kinds & skUnigram) unigram_file_name = argv[optind++];
         else bigram_file_name = argv[optind++];
         ciphertext_file_name = argv[optind];
                 
