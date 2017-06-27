@@ -180,7 +180,10 @@ bool Settings::FromCommandLine(int argc, char **argv)
             }
         }
 
-        if (argc - optind != 3)         
+        //load the rest from resume file if enabled
+        if (resume && !LoadResumeFile()) return false;
+
+        if (argc - optind != 3)
             throw std::invalid_argument("three file names required");
 
         trigram_file_name = argv[optind++];
@@ -188,9 +191,6 @@ bool Settings::FromCommandLine(int argc, char **argv)
         else bigram_file_name = argv[optind++];
         ciphertext_file_name = argv[optind];
                 
-        //load the rest from resume file if enabled
-        if (resume) return LoadResumeFile();
-
         return Validate();
     }
 
@@ -336,8 +336,6 @@ bool Settings::LoadResumeFile()
         best_key_string = ReadToken(fs);
         best_pluggoard_string = ReadToken(fs);
         best_score = std::stoi(ReadToken(fs));
-
-        return Validate();
     }
     catch (const std::exception & e)
     {
