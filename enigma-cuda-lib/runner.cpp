@@ -15,7 +15,7 @@ bool Runner::Initialize(int max_length)
 {
   try
   {
-      if (!SelectGpuDevice(2, 1, silent)) return false;
+      if (!SelectGpuDevice(2, 0, silent)) return false;
       
       //load ciphertext
       ciphertext = LoadTextFromFile(settings.ciphertext_file_name);
