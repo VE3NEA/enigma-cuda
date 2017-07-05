@@ -588,6 +588,7 @@ __global__ void ClimbKernel(const Task task)
     int linear_idx = blockIdx.z * ALPSIZE_TO2 + blockIdx.y * ALPSIZE + blockIdx.x;
     result = &task.results[linear_idx];
     result->index = linear_idx;
+    result->score = 0; // unitialized when skip_this_key
 
     skip_this_key = ((gridDim.x > 1) &&
       (GetTurnoverLocation(d_key.stru, sett, block.count, d_wiring)
