@@ -34,7 +34,7 @@ const string help_string =
 "  - icuwrmk       ignored but do not result in an error\r\n";
 
 
-#define VALID_OPTIONS "hvicpxaRM:w:r:m:u:s:f:t:k:n:z:o:e:E:g:"
+#define VALID_OPTIONS "hvicpxaRM:w:r:m:u:s:f:t:k:n:z:o:e:E:g:d:"
 
 
 string OptionGToString(int value)
@@ -82,6 +82,7 @@ void Settings::Clear()
     best_score = 0;
     best_key_string = "";
     best_pluggoard_string = "";
+    device_number = -1;
 }
 
 bool Settings::FromCommandLine(int argc, char **argv)
@@ -165,6 +166,10 @@ bool Settings::FromCommandLine(int argc, char **argv)
                 if (model == enigmaInvalid)
                     throw std::invalid_argument(optarg);
                 break;
+
+            case 'd':
+              device_number = std::stoi(optarg);
+              break;
 
             case 'i':
             case 'c':

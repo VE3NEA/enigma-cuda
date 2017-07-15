@@ -33,7 +33,7 @@ struct Result
 extern void SetUpScramblerMemory();
 extern void GenerateScrambler(const Key & key);
 extern void CopyScramblerToHost(PitchedArray & dst);
-extern bool SelectGpuDevice(int req_major, int req_minor, bool silent);
+extern bool SelectGpuDevice(int req_major, int req_minor, bool silent, int device_number);
 extern void CipherTextToDevice(string ciphertext_string);
 extern void NgramsToDevice(const string & uni_filename,        
   const string & bi_filename, const string & tri_filename);

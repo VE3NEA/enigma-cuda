@@ -790,7 +790,7 @@ Result GetBestResult(int count)
 //------------------------------------------------------------------------------
 //                                  util
 //------------------------------------------------------------------------------
-bool SelectGpuDevice(int req_major, int req_minor, bool silent)
+bool SelectGpuDevice(int req_major, int req_minor, bool silent, int device_number)
 {
   int best_device = 0;
   int num_devices;
@@ -798,27 +798,36 @@ bool SelectGpuDevice(int req_major, int req_minor, bool silent)
 
   CUDA_CHECK(cudaGetDeviceCount(&num_devices));
 
-  switch (num_devices)
-  {
-  case 0:
-    std::cerr << "GPU not found. Terminating.";
-    return false;
-
-  case 1:
-    break;
-
-  default:
-    int max_sm = 0;
-    for (int device = 0; device < num_devices; device++)
+  if (device_number != -1)
+    if (device_number >= num_devices)
     {
-      CUDA_CHECK(cudaGetDeviceProperties(&prop, device));
-      if (prop.multiProcessorCount > max_sm)
+      std::cerr << "GPU " << device_number << " not found. Terminating.";
+      return false;
+    }
+    else
+      best_device = device_number;
+  else
+    switch (num_devices)
+    {
+    case 0:
+      std::cerr << "GPU not found. Terminating.";
+      return false;
+
+    case 1:
+      break;
+
+    default:
+      int max_sm = 0;
+      for (int device = 0; device < num_devices; device++)
       {
-        max_sm = prop.multiProcessorCount;
-        best_device = device;
+        CUDA_CHECK(cudaGetDeviceProperties(&prop, device));
+        if (prop.multiProcessorCount > max_sm)
+        {
+          max_sm = prop.multiProcessorCount;
+          best_device = device;
+        }
       }
     }
-  }
 
   CUDA_CHECK(cudaGetDeviceProperties(&prop, best_device));
   if (!silent)

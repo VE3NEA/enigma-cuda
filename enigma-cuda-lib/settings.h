@@ -50,6 +50,9 @@ struct Settings
     //NEW: -g 0123
     int score_kinds;
 
+    //NEW: -d 2
+    int device_number;
+
     //non-options[0]
     string unigram_file_name;
     string bigram_file_name;

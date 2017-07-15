@@ -14,12 +14,12 @@ namespace enigmacudatests
 {
     const string cmd_string = "enigma-cuda.exe -M M3"
         " -f B:124:AA:AAA -t B:124:ZZ:ZZZ -x -n 3 -z 2147483646"
-        " -e ENRXSI -E XY -p -g 23"
+        " -e ENRXSI -E XY -p -g 23 -d 2"
         " -o output.txt 00trigr.gen 00bigr.gen PBNXA.txt";
 
     const Settings cmd_settings = { "output.txt", enigmaM3, "B:124:AA:AAA",
       "B:124:ZZ:ZZZ", toDuringMessage, 3, 2147483646 ,  "", "ENRXSI", "XY",
-      false, skBigram | skTrigram, "", "00bigr.gen", "00trigr.gen", 
+      false, skBigram | skTrigram, 2, "", "00bigr.gen", "00trigr.gen", 
       "PBNXA.txt", "B:124:AA:AAA" };
     
 
@@ -29,7 +29,7 @@ namespace enigmacudatests
 
     const Settings resume_settings = { "", enigmaM3, "B:124:AA:AAA",
         "B:124:ZZ:ZZZ", toBeforeMessage, 1, 2147483646 , "", "", "", true,
-      skIC | skUnigram | skTrigram, "", "", "", "",
+      skIC | skUnigram | skTrigram, -1, "", "", "", "",
         "B:124:ZZ:ZZZ", 30884, "B:124:YP:HEJ", "BJCDFNGZHIKLMUOVPXQYRWST" };
 
 

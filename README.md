@@ -94,6 +94,10 @@ ciphertext
 `2` = bigrams, `3` = trigrams. 
 The default is `023`. 
 
+`-d <device number>`   Use the specified GPU device. Device indices start 
+with 0. If this switch is not present, the GPU with the highest number of
+multiprocessors is used.
+
 For compatibility with enigma-suite,
 the program can use only the unigrams or bigrams file, but not both.
 
