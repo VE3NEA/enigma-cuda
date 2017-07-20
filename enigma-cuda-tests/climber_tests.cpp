@@ -66,13 +66,25 @@ namespace enigmacudatests
         //break a real cipher, iterate over the right hand ring and all rotor positions
         TEST_METHOD(SolveTest)
         {
+          const string start_key_string = "B:524:KX:XXX";
             SetUpClimb(4, cipher_string, solution_key_string, test_order, toBeforeMessage, UNI_FILE, TRI_FILE);
-            Result result = RunClimb(4, cipher_string, "B:524:KX:XXX");
+            Result result = RunClimb(4, cipher_string, start_key_string);
+
             Assert::AreEqual(solution_score, result.score);
 
             Plugboard plugboard;
             plugboard.FromData(result.plugs);
             Assert::AreEqual(solution_plug_string, plugboard.ToString());
+
+            Key key;
+            //known part
+            key.FromString(start_key_string);
+            //recovered part
+            key.sett.FromInt(result.index, 4);
+            Assert::AreEqual(solution_key_string, key.ToString());
+
+            string decrypted_text = DecodeMessage(cipher_string, key.ToString(), result.plugs);
+            Assert::AreEqual(solution_text, decrypted_text);
         }
     };
 }

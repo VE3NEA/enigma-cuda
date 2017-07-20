@@ -39,6 +39,7 @@ struct RotorSettings
     int r_mesg;
 
     bool inc();
+    void FromInt(int value, int digits = 5);
 };
 
 struct Key 

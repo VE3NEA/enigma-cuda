@@ -244,3 +244,13 @@ bool RotorSettings::inc()
 
   return false;
 }
+
+void RotorSettings::FromInt(int value, int digits)
+{
+  if (digits > 4) m_ring = (value / ALPSIZE_TO4) % ALPSIZE;
+  if (digits > 3) r_ring = (value / ALPSIZE_TO3) % ALPSIZE;
+
+  l_mesg = (value / ALPSIZE_TO2) % ALPSIZE;
+  m_mesg = (value / ALPSIZE) % ALPSIZE;
+  r_mesg = value % ALPSIZE;
+}
