@@ -587,8 +587,7 @@ __global__ void ClimbKernel(const Task task)
     //element of results[] to store the output 
     int linear_idx = blockIdx.z * ALPSIZE_TO2 + blockIdx.y * ALPSIZE + blockIdx.x;
     result = &task.results[linear_idx];
-    result->index = linear_idx;
-    result->score = 0; // unitialized when skip_this_key
+    result->score = 0;
 
     skip_this_key = ((gridDim.x > 1) &&
       (GetTurnoverLocation(d_key.stru, sett, block.count, d_wiring)
@@ -710,10 +709,9 @@ __global__ void FindBestResultKernel(Result *g_idata, Result *g_odata,
   Result best_pair;
   if (i < count)
   {
-    best_pair.index = g_idata[i].index;
+    best_pair.index = g_idata[i].index = i;
     best_pair.score = g_idata[i].score;
   }
-  else best_pair.score = 0;
 
   if (i + blockDim.x < count) SelectHigherScore(best_pair, g_idata[i + blockDim.x]);
 

@@ -290,17 +290,13 @@ void MockResults(int count)
 {
     SetUpResultsMemory(count);
 
+    //make all scores are random, then set best result higher than RAND_MAX
     Result * mock_data = new Result[count];
-    for (int i = 0; i < count; i++)
-    {
-        mock_data[i].index = i;
-        mock_data[i].score = i + 1;
-    }
+    for (int i = 0; i < count; i++) mock_data[i].score = rand();
+    mock_data[std::min(count-1, 1)].score = 2 * RAND_MAX;
 
     CUDA_CHECK(cudaMemcpy((void *)h_task.results, (void *)mock_data, count * sizeof(Result), cudaMemcpyHostToDevice));
-
     delete[] mock_data;
-
     d_temp = NULL;
 }
 

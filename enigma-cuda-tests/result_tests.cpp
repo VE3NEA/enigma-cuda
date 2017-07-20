@@ -25,7 +25,7 @@ namespace enigmacudatests
             {
                 MockResults(counts[i]);
                 Result result = GetBestResult(counts[i]);
-                Assert::AreEqual(counts[i], result.score);
+                Assert::AreEqual(RAND_MAX*2, result.score);
             }
 
         }
