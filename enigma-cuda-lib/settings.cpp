@@ -339,6 +339,7 @@ bool Settings::LoadResumeFile()
         best_key_string = ReadToken(fs);
         best_pluggoard_string = ReadToken(fs);
         best_score = std::stoi(ReadToken(fs));
+        return true;
     }
     catch (const std::exception & e)
     {
